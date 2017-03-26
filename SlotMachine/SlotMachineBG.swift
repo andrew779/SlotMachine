@@ -83,18 +83,53 @@ class SlotMachineBG: SKSpriteNode {
         return label
     }()
     
+    let firstReel: SKSpriteNode = {
+        let texture = SKTexture(image: #imageLiteral(resourceName: "banana"))
+        let node = SKSpriteNode(texture: texture, color: .clear, size: CGSize(width: 150, height: 120))
+        node.position = CGPoint(x: -220, y: -55)
+        
+        return node
+    }()
+    
+    let secondReel: SKSpriteNode = {
+        let texture = SKTexture(image: #imageLiteral(resourceName: "cherry"))
+        let node = SKSpriteNode(texture: texture, color: .clear, size: CGSize(width: 150, height: 120))
+        node.position = CGPoint(x: -4, y: -55)
+        
+        return node
+    }()
+    
+    let thirdReel: SKSpriteNode = {
+        let texture = SKTexture(image: #imageLiteral(resourceName: "grapes"))
+        let node = SKSpriteNode(texture: texture, color: .clear, size: CGSize(width: 150, height: 120))
+        node.position = CGPoint(x: 219, y: -55)
+        
+        return node
+    }()
+    
+    let quitButton: SKSpriteNode = {
+        let texture = SKTexture(image: #imageLiteral(resourceName: "quit"))
+        let node = SKSpriteNode(texture: texture, color: .clear, size: CGSize(width: 100, height: 90))
+        node.position = CGPoint(x: 280, y: 250)
+        
+        return node
+    }()
+    
     init() {
         let texture = SKTexture(image: #imageLiteral(resourceName: "bg"))
         super.init(texture: texture, color: .white, size: #imageLiteral(resourceName: "bg").size)
-        self.addChild(spinButton)
-        self.addChild(resetButton)
-        self.addChild(betOneButton)
-        self.addChild(betMaxButton)
-        self.addChild(totalLabel)
-        self.addChild(betLabel)
-        self.addChild(winLabel)
-        self.addChild(jackpotLabel)
-        
+        addChild(spinButton)
+        addChild(resetButton)
+        addChild(betOneButton)
+        addChild(betMaxButton)
+        addChild(totalLabel)
+        addChild(betLabel)
+        addChild(winLabel)
+        addChild(jackpotLabel)
+        addChild(firstReel)
+        addChild(secondReel)
+        addChild(thirdReel)
+        addChild(quitButton)
     }
 
     required init?(coder aDecoder: NSCoder) {

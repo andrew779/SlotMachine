@@ -34,6 +34,8 @@ class PlayScene: SKScene {
             print("betMaxButton Tapped")
         } else if slotMachine.resetButton.contains(pos) {
             print("resetButton Tapped")
+        } else if slotMachine.quitButton.contains(pos) {
+            print("quitButton Tapped")
         }
     }
     
