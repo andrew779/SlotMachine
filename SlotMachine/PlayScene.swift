@@ -43,6 +43,13 @@ class PlayScene: SKScene {
         addChild(slotMachine)
         showPlayerStates()
     }
+
+    func resetGameValue(){
+        gameValue.jackpot = 5000
+        gameValue.playerBet = 0
+        gameValue.playerMoney = 1000
+        gameValue.winnings = 0
+    }
     
     func betCoin(coin: Int){
         if gameValue.playerMoney <= 0 {
@@ -220,14 +227,7 @@ class PlayScene: SKScene {
     func showPlayerStates(){
         slotMachine.playerStates = gameValue
     }
-    
-    func resetGameValue(){
-        gameValue.jackpot = 5000
-        gameValue.playerBet = 0
-        gameValue.playerMoney = 10
-        gameValue.winnings = 0
-    }
-    
+
     func checkJackPot() {
         let jackPotTry = GKARC4RandomSource().nextInt(upperBound: 51)
         let jackPotWin = GKARC4RandomSource().nextInt(upperBound: 51)
@@ -261,6 +261,8 @@ class PlayScene: SKScene {
             resetGameValue()
             print("resetButton Tapped")
         } else if slotMachine.quitButton.contains(pos) {
+            let goodByeScene = GoodByeScene(size: (self.view?.frame.size)!)
+            self.scene?.view?.presentScene(goodByeScene)
             print("quitButton Tapped")
         }
         slotMachine.updatePlayerStates()
