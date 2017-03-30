@@ -8,11 +8,11 @@
 
 import Foundation
 
-struct GameValue {
+class GameValue: NSObject {
     private var _playerMoney = 1000
     private var _winnings = 0
     private var _jackpot = 5000
-    private var _playerBet = 0
+    private var _playerBet = 1
     
     var playerMoney:Int{
         get{

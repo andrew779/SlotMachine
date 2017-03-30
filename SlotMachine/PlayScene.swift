@@ -12,10 +12,14 @@ import GameplayKit
 
 class PlayScene: SKScene {
     let slotMachine = SlotMachineBG()
+        
     var gameValue = GameValue()
     
+
     
     // MARK: - global varialbles
+    let maxBet = 25
+    
     enum fruitTally: String {
         case grape
         case banana
@@ -37,8 +41,39 @@ class PlayScene: SKScene {
     
     override func didMove(to view: SKView) {
         addChild(slotMachine)
-//        showPlayerStates()
-        reels()
+        showPlayerStates()
+//        reels()
+    }
+    
+    func betCoin(coin: Int){
+        if gameValue.playerMoney <= 0 {
+            gameValue.playerBet = 0
+            print("you don't have enough money")
+            return
+        }
+        
+        if gameValue.playerMoney >= (coin + gameValue.playerBet) {
+            if gameValue.playerBet > maxBet {
+                gameValue.playerBet = 1
+            } else {
+                gameValue.playerBet += coin
+            }
+            
+        } else {
+            if gameValue.playerBet >= gameValue.playerMoney {
+                gameValue.playerBet = 1
+            } else {
+                gameValue.playerBet += coin
+            }
+        }
+    }
+    
+    func betMaxCoin() {
+        if gameValue.playerMoney >= maxBet {
+            gameValue.playerBet = maxBet
+        } else {
+            gameValue.playerBet = gameValue.playerMoney
+        }
     }
     
     func determineWinnings(){
@@ -93,14 +128,18 @@ class PlayScene: SKScene {
                 gameValue.winnings = gameValue.playerBet * 1;
             }
             
-            print("you win")
+            gameValue.playerMoney += gameValue.winnings
         }
         else
         {
+            gameValue.playerMoney -= gameValue.playerBet
+            betCoin(coin: 0) // use to revalidate remaining credit
             print("you loss")
         }
         
         resetFruitTally()
+        
+        
     }
     
     func reels(){
@@ -115,7 +154,7 @@ class PlayScene: SKScene {
             print(outCome[spin])
             print(betLine[spin])
         }
-        
+        checkJackPot()
         determineWinnings()
     }
     
@@ -173,7 +212,7 @@ class PlayScene: SKScene {
     func resetGameValue(){
         gameValue.jackpot = 5000
         gameValue.playerBet = 0
-        gameValue.playerMoney = 1000
+        gameValue.playerMoney = 10
         gameValue.winnings = 0
     }
     
@@ -210,14 +249,18 @@ class PlayScene: SKScene {
             reels()
             print("spinButton Tapped")
         } else if slotMachine.betOneButton.contains(pos) {
+            betCoin(coin: 1)
             print("betOneButton Tapped")
         } else if slotMachine.betMaxButton.contains(pos) {
+            betMaxCoin()
             print("betMaxButton Tapped")
         } else if slotMachine.resetButton.contains(pos) {
+            resetGameValue()
             print("resetButton Tapped")
         } else if slotMachine.quitButton.contains(pos) {
             print("quitButton Tapped")
         }
+        slotMachine.updatePlayerStates()
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
