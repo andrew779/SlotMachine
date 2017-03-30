@@ -115,6 +115,19 @@ class SlotMachineBG: SKSpriteNode {
         return node
     }()
     
+    var playerStates: GameValue! {
+        didSet{
+            updatePlayerStates()
+        }
+    }
+    
+    private func updatePlayerStates(){
+        jackpotLabel.text = "\(playerStates.jackpot)"
+        totalLabel.text = "\(playerStates.playerMoney)"
+        betLabel.text = "\(playerStates.playerBet)"
+        winLabel.text = "\(playerStates.winnings)"
+    }
+    
     init() {
         let texture = SKTexture(image: #imageLiteral(resourceName: "bg"))
         super.init(texture: texture, color: .white, size: #imageLiteral(resourceName: "bg").size)
