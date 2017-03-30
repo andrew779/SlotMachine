@@ -100,7 +100,7 @@ class SlotMachineBG: SKSpriteNode {
     }()
     
     let thirdReel: SKSpriteNode = {
-        let texture = SKTexture(image: #imageLiteral(resourceName: "grapes"))
+        let texture = SKTexture(image: #imageLiteral(resourceName: "grape"))
         let node = SKSpriteNode(texture: texture, color: .clear, size: CGSize(width: 150, height: 120))
         node.position = CGPoint(x: 219, y: -55)
         
